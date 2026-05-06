@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>MedPrep · MDCAT English Preparation Session · Transitional Devices & Punctuation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --med-dark: #0a2c48;
+            --med-light: #f5fafd;
+            --med-accent: #1ecbe1;
+            --med-text: #15304c;
+            --white: #ffffff;
+            --success: #059669;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+        }
+
+        body {
+            background: var(--med-light);
+            font-family: 'Inter', sans-serif;
+            color: var(--med-text);
+            line-height: 1.5;
+        }
+
+        .main-header {
+            background: var(--med-dark);
+            color: white;
+            padding: 16px 20px;
+            box-shadow: 0 12px 30px -10px rgba(10,44,72,0.4);
+            text-align: center;
+        }
+        .logo-wrapper {
+            background: white;
+            padding: 6px 20px;
+            border-radius: 60px;
+            display: inline-flex;
+            border: 2px solid var(--med-accent);
+            margin-bottom: 8px;
+        }
+        .logo-img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+        .pill-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.12);
+            padding: 8px 18px;
+            border-radius: 100px;
+            backdrop-filter: blur(8px);
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        .pill-nav span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        #score-summary {
+            display: none;
+            background: var(--med-dark);
+            color: white;
+            padding: 28px 20px;
+            border-radius: 32px;
+            margin-bottom: 30px;
+            border: 3px solid var(--med-accent);
+            text-align: center;
+        }
+        #final-score {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--med-accent);
+            letter-spacing: -1px;
+        }
+
+        .syllabus-box {
+            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+            border: 2px solid var(--med-accent);
+            border-radius: 28px;
+            padding: 22px 25px;
+            margin-bottom: 35px;
+        }
+        .syllabus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        .syllabus-grid span {
+            background: rgba(10,44,72,0.08);
+            padding: 8px 14px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+        }
+
+        .question-wrap {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e2edf2;
+            transition: 0.2s;
+        }
+        .q-text {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            display: block;
+            line-height: 1.45;
+            color: #0a2c48;
+        }
+        .opt-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 14px;
+            border: 1px solid #dce5ec;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.92rem;
+        }
+        .opt-label:hover {
+            border-color: var(--med-accent);
+            background: #f0f9ff;
+        }
+        .opt-label input {
+            margin-top: 2px;
+            transform: scale(1.1);
+            flex-shrink: 0;
+        }
+        .feedback-area {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            background: #f8fafc;
+            border-left: 5px solid #ccc;
+        }
+        .correct-ans { color: var(--success); font-weight: 700; }
+        .wrong-ans { color: var(--danger); font-weight: 700; }
+
+        #submit-btn {
+            background: var(--med-accent);
+            color: var(--med-dark);
+            border: none;
+            padding: 18px 28px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+            margin: 20px 0 30px;
+        }
+        #submit-btn:active { transform: scale(0.98); }
+        #submit-btn.disabled-btn {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .progress-container {
+            background: #e2e8f0;
+            border-radius: 40px;
+            height: 10px;
+            margin: 15px 0 25px;
+        }
+        .progress-fill {
+            background: var(--med-accent);
+            width: 0%;
+            height: 10px;
+            border-radius: 40px;
+            transition: width 0.3s;
+        }
+
+        .main-footer {
+            background: var(--med-dark);
+            color: #e2f0fa;
+            padding: 35px 20px;
+            border-top: 4px solid var(--med-accent);
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .question-wrap { padding: 16px; }
+            .opt-label { padding: 10px 12px; font-size: 0.85rem; }
+            .q-text { font-size: 0.92rem; }
+            #final-score { font-size: 3rem; }
+            .pill-nav span { font-size: 0.7rem; }
+        }
+        @media (max-width: 480px) {
+            .opt-label { gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <div class="logo-wrapper">
+        <img src="Gemini_Generated_Image_n3wf4vn3wf4vn3wf.jpg" alt="MedPrep Logo" class="logo-img">
+    </div>
+    <div class="pill-nav">
+        
+    </div>
+</header>
+
+<div class="container">
+    <div id="score-summary">
+        <h2 style="font-family:'Outfit';"> Score</h2>
+        <div id="final-score">0 / 25</div>
+    </div>
+
+    <div class="syllabus-box">
+        <h3 style="margin:0; font-family:'Outfit'; color: var(--med-dark);"><i class=""></i> TRANSITIONAL DEVICES & PUNCTUATION</h3>
+        <div class="syllabus-grid">
+           
+        </div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <form id="quizForm">
+        <div id="quiz-container"></div>
+        <button type="button" id="submit-btn" onclick="checkAllAnswers()"> Submit</button>
+    </form>
+</div>
+
+<footer class="main-footer">
+    <span> © MedPrep. All Rights Reserved. </span>
+</footer>
+
+<script>
+// --------------------------------------------------------------
+// TRANSITIONAL DEVICES & PUNCTUATION - 25 MCQs (May 1)
+// Covers: Coordinating/subordinating conjunctions, transitional words,
+// commas, semicolons, colons, apostrophes
+// ✅ EACH QUESTION: ONE correct answer · Explanation matches the key
+// --------------------------------------------------------------
+const quizData = [
+    // ==================== Transitional Devices ====================
+    {q: "Choose the correct transition: 'She studied hard; _____, she passed the exam.'", a: "B", choices: ["However", "Therefore", "Moreover", "Nevertheless"], e: "'Therefore' indicates cause-and-effect conclusion."},
+    {q: "Select the appropriate transition: 'He is very rich; _____, he is not happy.'", a: "C", choices: ["Consequently", "Thus", "However", "Furthermore"], e: "'However' shows contrast between being rich and not happy."},
+    {q: "Complete the sentence: 'First, mix the ingredients. _____, bake for 30 minutes.'", a: "D", choices: ["In contrast", "Similarly", "Nevertheless", "Then"], e: "'Then' indicates sequence/next step in process."},
+    {q: "Choose the best transition: 'The weather was terrible; _____, we decided to stay home.'", a: "A", choices: ["Therefore", "However", "On the other hand", "In addition"], e: "'Therefore' shows logical consequence of bad weather."},
+    {q: "Select the correct transition: 'He is intelligent; _____, he is very hardworking.'", a: "B", choices: ["But", "Moreover", "However", "Nevertheless"], e: "'Moreover' adds additional positive information."},
+    {q: "Complete: 'The company's profits increased; _____, its stock price rose significantly.'", a: "C", choices: ["However", "Nevertheless", "Consequently", "On the contrary"], e: "'Consequently' indicates a result or effect."},
+    {q: "Choose the correct transition: 'He failed the test; _____, he did not study at all.'", a: "D", choices: ["Therefore", "Moreover", "However", "After all"], e: "'After all' introduces a reason or explanation."},
+    {q: "Select the appropriate transition: 'She loves classical music; _____, she also enjoys jazz.'", a: "B", choices: ["However", "In addition", "Therefore", "Nevertheless"], e: "'In addition' adds related information."},
+    
+    // ==================== Punctuation - Commas ====================
+    {q: "Choose the correctly punctuated sentence:", a: "C", choices: ["Let's eat Grandma.", "Let's eat, Grandma!", "Let's eat, Grandma.", "Lets eat Grandma."], e: "Comma before direct address 'Grandma' prevents confusion (eating vs addressing)."},
+    {q: "Which sentence uses commas correctly?", a: "D", choices: ["I bought apples oranges and bananas.", "I bought apples, oranges and bananas.", "I bought apples oranges, and bananas.", "I bought apples, oranges, and bananas."], e: "Commas separate items in a list (serial comma optional but correct)."},
+    {q: "Identify the correct comma usage:", a: "B", choices: ["After dinner, we went for a walk.", "After dinner we went for a walk.", "After dinner we went, for a walk.", "After dinner we went for a walk,"], e: "Comma after an introductory phrase is optional but often preferred for clarity."},
+    {q: "Choose the correctly punctuated sentence:", a: "A", choices: ["Yes, I will attend the meeting.", "Yes I, will attend the meeting.", "Yes I will, attend the meeting.", "Yes I will attend, the meeting."], e: "A comma follows an introductory word like 'yes' or 'no'."},
+    
+    // ==================== Punctuation - Semicolons & Colons ====================
+    {q: "Which sentence uses a semicolon correctly?", a: "C", choices: ["I have a big test tomorrow, I can't go out.", "I have a big test tomorrow; therefore I can't go out.", "I have a big test tomorrow; therefore, I can't go out.", "I have a big test tomorrow; I can't go out."], e: "Semicolon joins independent clauses; conjunctive adverb 'therefore' is followed by a comma."},
+    {q: "Choose the sentence that correctly uses a colon:", a: "B", choices: ["She bought: apples, oranges, and bananas.", "She bought three items: apples, oranges, and bananas.", "She bought: apples, oranges and bananas.", "She bought apples, oranges: and bananas."], e: "A colon introduces a list after a complete independent clause."},
+    {q: "Select the correctly punctuated sentence:", a: "D", choices: ["The following students will report: John, Mary, and Tom.", "The following students will report: John, Mary and Tom.", "The following students will report John, Mary, and Tom.", "The following students will report: John, Mary and Tom."], e: "A colon is used to introduce a list after a complete statement."},
+    {q: "Which sentence uses a semicolon correctly?", a: "A", choices: ["I have a test tomorrow; I can't go out.", "I have a test tomorrow, I can't go out.", "I have a test tomorrow; I can't go out,", "I have a test tomorrow I can't go out;"], e: "A semicolon joins two closely related independent clauses without a conjunction."},
+    
+    // ==================== Punctuation - Apostrophes ====================
+    {q: "Choose the correct apostrophe usage:", a: "C", choices: ["Its a beautiful day.", "The dogs' leash is missing.", "The dog's leash is missing.", "The dogs leash is missing."], e: "Apostrophe + s shows possession for singular noun (dog's leash). 'It's' means 'it is'."},
+    {q: "Which sentence has correct apostrophe placement?", a: "D", choices: ["The childrens' toys are scattered.", "The children's toys are scattered.", "The childrens toys are scattered.", "The children's toys are scattered."], e: "Children is already plural; add apostrophe + s → children's."},
+    {q: "Identify the correct possessive form:", a: "B", choices: ["James' book", "James's book", "James book", "James' book"], e: "For singular proper names ending in s, both styles are accepted; James's is common."},
+    
+    // ==================== Mixed Punctuation & Transitions ====================
+    {q: "Choose the correctly punctuated sentence:", a: "A", choices: ["Well, I suppose we could try again.", "Well I suppose we could try again.", "Well, I suppose, we could try again.", "Well I suppose, we could try again."], e: "A comma follows an interjection like 'well'."},
+    {q: "Select the correct sentence:", a: "C", choices: ["He asked, Where are you going?", "He asked, 'Where are you going'?", "He asked, 'Where are you going?'", "He asked 'Where are you going?'"], e: "Quotation marks enclose the exact words; question mark goes inside."},
+    {q: "Which sentence uses the transition correctly?", a: "B", choices: ["He is tired, however he continues working.", "He is tired; however, he continues working.", "He is tired however he continues working.", "He is tired, however, he continues working."], e: "A semicolon before 'however' and a comma after it is correct."},
+    {q: "Choose the correctly punctuated sentence:", a: "D", choices: ["Dear Sir, I am writing to apply for the position.", "Dear Sir: I am writing to apply for the position.", "Dear Sir; I am writing to apply for the position.", "Dear Sir: I am writing to apply for, the position."], e: "A colon is used after a formal salutation in business letters."},
+    {q: "Identify the correct use of the apostrophe:", a: "B", choices: ["The car lost its' tire.", "The car lost its tire.", "The car lost it's tire.", "The car lost its tire."], e: "'Its' is the possessive form (no apostrophe); 'it's' means 'it is'."},
+    {q: "Which sentence is punctuated correctly?", a: "C", choices: ["She said 'I'll be there soon.'", "She said, 'I'll be there soon'", "She said, 'I'll be there soon.'", "She said 'I'll be there soon'."], e: "Comma before quotation, period inside closing quotation mark."},
+    
+];
+
+function renderQuiz() {
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = '';
+    quizData.forEach((item, idx) => {
+        const qHtml = `
+            <div class="question-wrap" id="q-wrap-${idx}">
+                <span class="q-text">${idx+1}. ${item.q}</span>
+                ${item.choices.map((c, i) => `
+                    <label class="opt-label">
+                        <input type="radio" name="q${idx}" value="${String.fromCharCode(65+i)}">
+                        <span>${String.fromCharCode(65+i)}. ${c}</span>
+                    </label>
+                `).join('')}
+                <div class="feedback-area" id="feed-${idx}">
+                    <div class="status"></div>
+                    <div class="correct-was">✔ Correct Answer: <b>${item.a}</b></div>
+                    <div class="expl-text"><i class="fas fa-lightbulb"></i> ${item.e}</div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += qHtml;
+    });
+}
+
+function updateProgress() {
+    let totalAnswered = 0;
+    for (let i = 0; i < quizData.length; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) totalAnswered++;
+    }
+    const percent = (totalAnswered / quizData.length) * 100;
+    document.getElementById('progress-fill').style.width = `${percent}%`;
+}
+
+function checkAllAnswers() {
+    let score = 0;
+    for (let i = 0; i < quizData.length; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feed-${i}`);
+        const statusDiv = feedback.querySelector('.status');
+        feedback.style.display = 'block';
+        
+        if (selected) {
+            if (selected.value === quizData[i].a) {
+                score++;
+                statusDiv.innerHTML = `<span class="correct-ans"><i class="fas fa-check-circle"></i> Correct!</span>`;
+                feedback.style.borderLeftColor = "#059669";
+            } else {
+                statusDiv.innerHTML = `<span class="wrong-ans"><i class="fas fa-times-circle"></i> Wrong! Correct answer is ${quizData[i].a}</span>`;
+                feedback.style.borderLeftColor = "#dc2626";
+            }
+        } else {
+            statusDiv.innerHTML = `<span class="wrong-ans" style="color:var(--warning)"><i class="fas fa-exclamation-triangle"></i> Not answered! Correct: ${quizData[i].a}</span>`;
+            feedback.style.borderLeftColor = "#f59e0b";
+        }
+    }
+    
+    document.getElementById('score-summary').style.display = 'block';
+    document.getElementById('final-score').innerText = `${score} / 25`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.classList.add('disabled-btn');
+    btn.innerText = " Submitted";
+}
+
+renderQuiz();
+setTimeout(() => {
+    updateProgress();
+    for (let i = 0; i < quizData.length; i++) {
+        const radios = document.querySelectorAll(`input[name="q${i}"]`);
+        radios.forEach(radio => radio.addEventListener('change', updateProgress));
+    }
+}, 100);
+</script>
+</body>
+</html>
